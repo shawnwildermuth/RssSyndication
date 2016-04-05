@@ -1,10 +1,10 @@
 {
-  "version": "0.0.1-*",
+  "version": "0.0.2-*",
   "description": ".NET Core Project for building RSS Feeds",
   "authors": [ "Shawn Wildermuth" ],
   "tags": [ "aspnetcore", "netcore", "rss", "syndication" ],
-  "projectUrl": "",
-  "licenseUrl": "",
+  "projectUrl": "https://github.com/shawnwildermuth/RssSyndication",
+  "licenseUrl": "https://github.com/shawnwildermuth/RssSyndication/blob/master/License.md",
   "frameworks": {
     "net451": {
       "frameworkAssemblies": {
