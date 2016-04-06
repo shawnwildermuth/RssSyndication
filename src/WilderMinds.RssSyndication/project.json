@@ -1,5 +1,5 @@
 {
-  "version": "0.0.2-*",
+  "version": "1.0.1-*",
   "description": ".NET Core Project for building RSS Feeds",
   "authors": [ "Shawn Wildermuth" ],
   "tags": [ "aspnetcore", "netcore", "rss", "syndication" ],
