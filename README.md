@@ -4,9 +4,7 @@
 
 Available as a Nuget Package for ASP.NET Core projects:
 
-```
-  Install-Package RssSyndication
-```
+- WilderMinds.RssSyndication 1.0.1
 
 ## Example
 
