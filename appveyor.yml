@@ -7,7 +7,6 @@ init:
  - git config --global core.autocrlf true
  
 cache:
-  - AllReadyApp\Web-App\AllReady\node_modules   #node modules for the app
   - '%APPDATA%\npm-cache'             # npm cache
   
 install:
@@ -23,11 +22,13 @@ before_build:
  - cmd: npm install gulp bower -g
 
 build_script:
- - cmd: dnu build ./src/RssSyndication.Tests
- - cmd: dnu build ./src/RssSyndication
+ - cmd: dnu restore ./src/WilderMinds.RssSyndication
+ - cmd: dnu restore ./src/WilderMinds.RssSyndication.Tests
+ - cmd: dnu build ./src/WilderMinds.RssSyndication
+ - cmd: dnu build ./src/WilderMinds.RssSyndication.Tests
 
 test_script:
- - ps: cd .\src\RssSyndication.Tests
+ - ps: cd .\src\WilderMinds.RssSyndication.Tests
  - cmd: dnx test 
 
 
