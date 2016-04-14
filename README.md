@@ -2,6 +2,8 @@
 
 .NET Core library for building RSS Feeds
 
+Current Build Status: [![Build status](https://ci.appveyor.com/api/projects/status/kx4q7baita74w5qk?svg=true)](https://ci.appveyor.com/project/shawnwildermuth/rsssyndication)
+
 Available as a Nuget Package for ASP.NET Core projects:
 
 - WilderMinds.RssSyndication 1.0.1
