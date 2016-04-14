@@ -1,0 +1,33 @@
+version: 1.0.0.{build}.{branch}
+
+nuget:
+  account_feed: true
+  
+init:
+ - git config --global core.autocrlf true
+ 
+cache:
+  - AllReadyApp\Web-App\AllReady\node_modules   #node modules for the app
+  - '%APPDATA%\npm-cache'             # npm cache
+  
+install:
+ - cmd: nuget sources add -Name api.nuget.org -Source https://api.nuget.org/v3/index.json
+ 
+before_build:
+ - ps: "&{$Branch='dev';iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.ps1'))}"
+ - cmd: dnvm install 1.0.0-rc1-update2 -r coreclr
+ - cmd: dnvm upgrade
+ - cmd: dnvm update-self
+ - cmd: dnvm list
+ - cmd: dnvm use 1.0.0-rc1-update2 -r coreclr
+ - cmd: npm install gulp bower -g
+
+build_script:
+ - cmd: dnu build ./src/RssSyndication.Tests
+ - cmd: dnu build ./src/RssSyndication
+
+test_script:
+ - ps: cd .\src\RssSyndication.Tests
+ - cmd: dnx test 
+
+
