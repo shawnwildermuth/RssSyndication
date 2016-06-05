@@ -1,27 +1,35 @@
 {
-  "version": "1.0.1-*",
+  "version": "1.0.2-rc2-*",
   "description": ".NET Core Project for building RSS Feeds",
   "authors": [ "Shawn Wildermuth" ],
-  "tags": [ "aspnetcore", "netcore", "rss", "syndication" ],
-  "projectUrl": "https://github.com/shawnwildermuth/RssSyndication",
-  "licenseUrl": "https://github.com/shawnwildermuth/RssSyndication/blob/master/License.md",
-  "frameworks": {
-    "net451": {
-      "frameworkAssemblies": {
-        "System.Xml.Linq": "4.0.0.0"
-      }
+  "packOptions": {
+    "tags": [ "aspnetcore", "netcore", "rss", "syndication" ],
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/shawnwildermuth/RssSyndication"
     },
-    "dotnet5.4": {
+    "projectUrl": "https://github.com/shawnwildermuth/RssSyndication",
+    "licenseUrl": "https://github.com/shawnwildermuth/RssSyndication/blob/master/License.md"
+  },
+  "buildOptions": {
+    "warningsAsErrors": true,
+    "xmlDoc": false
+  },
+
+  "dependencies": {
+  },
+
+  "frameworks": {
+    "netstandard1.3": {
+      "imports": [ "portable-net452+win81" ],
       "dependencies": {
-        "Microsoft.CSharp": "4.0.1-beta-23516",
-        "System.Collections": "4.0.11-beta-23516",
-        "System.Linq": "4.0.1-beta-23516",
-        "System.Runtime": "4.0.21-beta-23516",
-        "System.Threading": "4.0.11-beta-23516",
-        "System.Xml.XDocument": "4.0.11-beta-23516"
+        "Microsoft.CSharp": "4.0.1-rc2-*",
+        "System.Collections": "4.0.11-rc2-*",
+        "System.Linq": "4.1.0-rc2-*",
+        "System.Runtime": "4.1.0-rc2-*",
+        "System.Threading": "4.0.11-rc2-*",
+        "System.Xml.XDocument": "4.0.11-rc2-*"
       }
     }
-  },
-  "dependencies": {
   }
 }
