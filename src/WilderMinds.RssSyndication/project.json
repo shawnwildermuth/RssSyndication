@@ -1,5 +1,5 @@
 {
-  "version": "1.0.1-*",
+  "version": "1.0.2-rc2-*",
   "description": ".NET Core Project for building RSS Feeds",
   "authors": [ "Shawn Wildermuth" ],
   "packOptions": {
@@ -17,15 +17,11 @@
   },
 
   "dependencies": {
-    "Microsoft.NETCore.App": {
-      "type": "platform",
-      "version": "1.0.0-rc2-*"
-    }
   },
 
   "frameworks": {
-    "netcoreapp1.0": {
-      "imports": [ "dotnet5.4" ],
+    "netstandard1.3": {
+      "imports": [ "portable-net452+win81" ],
       "dependencies": {
         "Microsoft.CSharp": "4.0.1-rc2-*",
         "System.Collections": "4.0.11-rc2-*",

@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5DE14C4D-407F-4FDD-9CE9-CFE1E962CA85}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "RssSyndication", "WilderMinds.RssSyndication\RssSyndication.xproj", "{97437B6B-DFA7-4280-9B37-220ADC0C6116}"
 EndProject
@@ -29,9 +26,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{97437B6B-DFA7-4280-9B37-220ADC0C6116} = {95F06729-716B-4394-AA85-FA3F64D2CE6A}
-		{C95B969D-634B-477B-9190-CB4778F4F159} = {95F06729-716B-4394-AA85-FA3F64D2CE6A}
 	EndGlobalSection
 EndGlobal
