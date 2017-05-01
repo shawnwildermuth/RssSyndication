@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -99,6 +100,19 @@ namespace RssSyndication.Tests
       Assert.NotNull(item);
       Assert.True(item.Element("title").Value == "Foo Bar", "First Item was correct");
 
+    }
+
+    [Fact]
+    public void DatesAreProperlyFormatted()
+    {
+      CultureInfo.CurrentCulture = new CultureInfo("ru-RU");
+      var feed = CreateTestFeed();
+      var rss = feed.Serialize();
+      var doc = XDocument.Parse(rss);
+      var pubDate = doc.Descendants("pubDate").First();
+
+      var rfc822FormattedDate = feed.Items.First().PublishDate.ToString("r", CultureInfo.InvariantCulture);
+      Assert.Equal(rfc822FormattedDate, pubDate.Value);
     }
   }
 }
