@@ -37,7 +37,7 @@ namespace WilderMinds.RssSyndication
         foreach (var c in item.Categories) itemElement.Add(new XElement("category", c));
         if (item.Comments != null) itemElement.Add(new XElement("comments", item.Comments.AbsoluteUri));
         if (!string.IsNullOrWhiteSpace(item.Permalink)) itemElement.Add(new XElement("guid", item.Permalink));
-        var dateFmt = string.Concat(item.PublishDate.ToString("ddd',' d MMM yyyy HH':'mm':'ss"), " ", item.PublishDate.ToString("zzzz").Replace(":", ""));
+        var dateFmt = item.PublishDate.ToString("r");
         if (item.PublishDate != DateTime.MinValue) itemElement.Add(new XElement("pubDate", dateFmt));
         channel.Add(itemElement);
       }
