@@ -118,7 +118,7 @@ namespace RssSyndication.Tests
         {
             var feed = CreateTestFeed();
             var rss = feed.Serialize();
-            Assert.True(rss.StartsWith("<?xml version"));
+            Assert.StartsWith("<?xml version", rss);
         }
     }
 
