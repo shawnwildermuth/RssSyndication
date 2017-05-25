@@ -1,21 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5DE14C4D-407F-4FDD-9CE9-CFE1E962CA85}"
 	ProjectSection(SolutionItems) = preProject
 		..\.gitattributes = ..\.gitattributes
 		..\.gitignore = ..\.gitignore
 		..\appveyor.yml = ..\appveyor.yml
-		global.json = global.json
 		..\License.md = ..\License.md
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "RssSyndication", "WilderMinds.RssSyndication\RssSyndication.xproj", "{97437B6B-DFA7-4280-9B37-220ADC0C6116}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WilderMinds.RssSyndication", "WilderMinds.RssSyndication\WilderMinds.RssSyndication.csproj", "{97437B6B-DFA7-4280-9B37-220ADC0C6116}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "RssSyndication.Tests", "WilderMinds.RssSyndication.Tests\RssSyndication.Tests.xproj", "{C95B969D-634B-477B-9190-CB4778F4F159}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WilderMinds.RssSyndication.Tests", "WilderMinds.RssSyndication.Tests\WilderMinds.RssSyndication.Tests.csproj", "{C95B969D-634B-477B-9190-CB4778F4F159}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
