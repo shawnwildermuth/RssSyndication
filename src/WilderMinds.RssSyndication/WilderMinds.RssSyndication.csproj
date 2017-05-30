@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>.NET Core Project for building RSS Feeds</Description>
+    <VersionPrefix>1.1.0</VersionPrefix>
+    <Authors>Shawn Wildermuth</Authors>
+    <TargetFramework>netstandard1.3</TargetFramework>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AssemblyName>WilderMinds.RssSyndication</AssemblyName>
+    <PackageId>WilderMinds.RssSyndication</PackageId>
+    <PackageTags>aspnetcore;netcore;rss;syndication</PackageTags>
+    <PackageProjectUrl>https://github.com/shawnwildermuth/RssSyndication</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/shawnwildermuth/RssSyndication/blob/master/License.md</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>git://github.com/shawnwildermuth/RssSyndication</RepositoryUrl>
+    <NetStandardImplicitPackageVersion>1.6.0</NetStandardImplicitPackageVersion>
+    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+    <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
+  </PropertyGroup>
+
+</Project>
