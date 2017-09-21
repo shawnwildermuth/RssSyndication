@@ -1,9 +1,14 @@
 version: 1.0.0.{build}.{branch}
-image: Visual Studio 2015
+image: Visual Studio 2017
 
 install:
  - cmd: cd src && dotnet restore
 
 test_script:
- - cmd: dotnet xunit WilderMinds.RssSyndication.Tests
+ - cmd: cd WilderMinds.RssSyndication
+ - cmd: dotnet restore
+ - cmd: dotnet build
+ - cmd: cd ..\WilderMinds.RssSyndication.Tests
+ - cmd: dotnet restore
+ - cmd: dotnet build
 
