@@ -11,4 +11,5 @@ test_script:
  - cmd: cd ..\WilderMinds.RssSyndication.Tests
  - cmd: dotnet restore
  - cmd: dotnet build
+ - cmd: dotnet test
 
