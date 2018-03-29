@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace WilderMinds.RssSyndication
 {
@@ -13,5 +14,6 @@ namespace WilderMinds.RssSyndication
     public string Permalink { get; set; }
     public DateTime PublishDate { get; set; }
     public string Title { get; set; }
+    public ICollection<Enclosure> Enclosures { get; set; } = new List<Enclosure>();
   }
 }
