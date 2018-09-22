@@ -39,6 +39,19 @@ namespace WilderMinds.RssSyndication
         if (!string.IsNullOrWhiteSpace(item.Permalink)) itemElement.Add(new XElement("guid", item.Permalink));
         var dateFmt = item.PublishDate.ToString("r");
         if (item.PublishDate != DateTime.MinValue) itemElement.Add(new XElement("pubDate", dateFmt));
+        if (item.Enclosures != null && item.Enclosures.Any())
+        {
+          foreach (var enclosure in item.Enclosures)
+          {
+            var enclosureElement = new XElement("enclosure");
+            foreach (var key in enclosure.Values.AllKeys)
+            {
+              enclosureElement.Add(new XAttribute(key, enclosure.Values[key]));
+            }
+            itemElement.Add(enclosureElement);
+          }
+
+        }
         channel.Add(itemElement);
       }
 
