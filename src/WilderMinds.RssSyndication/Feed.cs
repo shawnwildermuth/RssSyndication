@@ -1,31 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace WilderMinds.RssSyndication
 {
-  public class Feed
-  {
-    public string Description { get; set; }
-    public Uri Link { get; set; }
-    public string Title { get; set; }
-    public string Copyright { get; set; }
-
-    public ICollection<Item> Items { get; set; } = new List<Item>();
-
-    public string Serialize()
+    public class Feed
     {
-      var doc = new XDocument(new XElement("rss"));
-      doc.Root.Add(new XAttribute("version", "2.0"));
+        public string Description { get; set; }
+        public Uri Link { get; set; }
+        public string Title { get; set; }
+        public string Copyright { get; set; }
 
-      var channel = new XElement("channel");
-      channel.Add(new XElement("title", this.Title));
-      channel.Add(new XElement("link", this.Link.AbsoluteUri));
-      channel.Add(new XElement("description", this.Description));
-      channel.Add(new XElement("copyright", this.Copyright));
-      doc.Root.Add(channel);
+        public ICollection<Item> Items { get; set; } = new List<Item>();
+
+        public string Serialize()
+        {
+            var doc = new XDocument(new XElement("rss"));
+            doc.Root.Add(new XAttribute("version", "2.0"));
+
+            var channel = new XElement("channel");
+            channel.Add(new XElement("title", Title));
+            channel.Add(new XElement("link", Link.AbsoluteUri));
+            channel.Add(new XElement("description", Description));
+            channel.Add(new XElement("copyright", Copyright));
+            doc.Root.Add(channel);
 
       foreach (var item in Items)
       {
@@ -55,8 +53,7 @@ namespace WilderMinds.RssSyndication
         channel.Add(itemElement);
       }
 
-      return doc.ToString();
-
+            return doc.ToStringWithDeclaration();
+        }
     }
-  }
 }
