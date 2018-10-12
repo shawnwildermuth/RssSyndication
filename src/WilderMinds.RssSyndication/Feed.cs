@@ -5,6 +5,7 @@ using System.Xml.Linq;
 
 namespace WilderMinds.RssSyndication
 {
+  /// <summary>Feed object which maps to 'channel' property on Feed.Serialize()</summary>
   public class Feed
   {
     public string Description { get; set; }
@@ -14,6 +15,7 @@ namespace WilderMinds.RssSyndication
 
     public ICollection<Item> Items { get; set; } = new List<Item>();
 
+    /// <summary>Produces well-formatted rss-compatible xml string.</summary>
     public string Serialize()
     {
       var doc = new XDocument(new XElement("rss"));
@@ -21,7 +23,7 @@ namespace WilderMinds.RssSyndication
 
       var channel = new XElement("channel");
       channel.Add(new XElement("title", Title));
-      channel.Add(new XElement("link", Link.AbsoluteUri));
+      if (Link != null) channel.Add(new XElement("link", Link.AbsoluteUri));
       channel.Add(new XElement("description", Description));
       channel.Add(new XElement("copyright", Copyright));
       doc.Root.Add(channel);
@@ -30,7 +32,7 @@ namespace WilderMinds.RssSyndication
       {
         var itemElement = new XElement("item");
         itemElement.Add(new XElement("title", item.Title));
-        itemElement.Add(new XElement("link", item.Link.AbsoluteUri));
+        if (item.Link != null) itemElement.Add(new XElement("link", item.Link.AbsoluteUri));
         itemElement.Add(new XElement("description", item.Body));
         if (item.Author != null) itemElement.Add(new XElement("author", $"{item.Author.Email} ({item.Author.Name})"));
         foreach (var c in item.Categories) itemElement.Add(new XElement("category", c));
