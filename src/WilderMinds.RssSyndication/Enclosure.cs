@@ -10,6 +10,6 @@ namespace WilderMinds.RssSyndication
       Values = new NameValueCollection();
     }
 
-    public NameValueCollection Values { get; }
+    public NameValueCollection Values { get; set; }
   }
 }
