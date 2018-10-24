@@ -6,7 +6,7 @@ Current Build Status: [![Build status](https://ci.appveyor.com/api/projects/stat
 
 Available as a Nuget Package for ASP.NET Core projects:
 
-- WilderMinds.RssSyndication 1.0.1
+- WilderMinds.RssSyndication [![NuGet](https://img.shields.io/nuget/v/WilderMinds.RssSyndication.svg)](https://www.nuget.org/packages/WilderMinds.RssSyndication)
 
 ## Example
 
