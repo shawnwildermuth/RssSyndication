@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Xml.Linq;
 using WilderMinds.RssSyndication;
 using Xunit;
@@ -119,6 +121,19 @@ namespace RssSyndication.Tests
             var feed = CreateTestFeed();
             var rss = feed.Serialize();
             Assert.StartsWith("<?xml version", rss);
+        }
+
+        [Fact]
+        public void GeneratedXmlHonorsSerializeOption()
+        {
+            var feed = CreateTestFeed();
+
+            var defaultRss = feed.Serialize();
+            var withOption = feed.Serialize(new SerializeOption() {Encoding = Encoding.UTF8});
+
+            // verify encoding
+            Assert.Contains("utf-16", new StringReader(defaultRss).ReadLine());
+            Assert.Contains("utf-8", new StringReader(withOption).ReadLine());
         }
     }
 
