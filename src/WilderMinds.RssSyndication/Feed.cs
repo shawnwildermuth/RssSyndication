@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Xml.Linq;
 
 namespace WilderMinds.RssSyndication
@@ -17,6 +18,16 @@ namespace WilderMinds.RssSyndication
 
     /// <summary>Produces well-formatted rss-compatible xml string.</summary>
     public string Serialize()
+    {
+      var defaultOption = new SerializeOption()
+      {
+        Encoding = Encoding.Unicode
+      };
+      return Serialize(defaultOption);
+    }
+
+    /// <summary>Produces well-formatted rss-compatible xml string.</summary>
+    public string Serialize(SerializeOption option)
     {
       var doc = new XDocument(new XElement("rss"));
       doc.Root.Add(new XAttribute("version", "2.0"));
@@ -56,7 +67,7 @@ namespace WilderMinds.RssSyndication
         channel.Add(itemElement);
       }
 
-      return doc.ToStringWithDeclaration();
+      return doc.ToStringWithDeclaration(option);
     }
   }
 }
