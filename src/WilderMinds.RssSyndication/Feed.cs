@@ -29,15 +29,26 @@ namespace WilderMinds.RssSyndication
     /// <summary>Produces well-formatted rss-compatible xml string.</summary>
     public string Serialize(SerializeOption option)
     {
-      var doc = new XDocument(new XElement("rss"));
-      doc.Root.Add(new XAttribute("version", "2.0"));
+        XNamespace nsAtom = "http://www.w3.org/2005/Atom";
+        var doc = new XDocument(new XElement("rss"));
+        doc.Root.Add(
+                new XAttribute("version", "2.0"), 
+                new XAttribute(XNamespace.Xmlns + "atom", "http://www.w3.org/2005/Atom"));
 
-      var channel = new XElement("channel");
-      channel.Add(new XElement("title", Title));
-      if (Link != null) channel.Add(new XElement("link", Link.AbsoluteUri));
-      channel.Add(new XElement("description", Description));
-      channel.Add(new XElement("copyright", Copyright));
-      doc.Root.Add(channel);
+        var channel = new XElement("channel");
+            channel.Add(
+                new XElement(nsAtom + "link",
+                new XAttribute("rel", "self"),
+                new XAttribute("type","application/rss+xml"),
+                new XAttribute("href", Link.AbsoluteUri)));
+
+            channel.Add(new XElement("title", Title));
+            if (Link != null) channel.Add(new XElement("link", Link.AbsoluteUri));
+            channel.Add(new XElement("description", Description));
+            // copyright is not a requirement
+            if (!string.IsNullOrEmpty(Copyright)) channel.Add(new XElement("copyright", Copyright));
+        
+        doc.Root.Add(channel);
 
       foreach (var item in Items)
       {
