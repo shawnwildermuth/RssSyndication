@@ -120,6 +120,39 @@ namespace RssSyndication.Tests
             var rss = feed.Serialize();
             Assert.StartsWith("<?xml version", rss);
         }
+
+
+        [Fact]
+        public void HtmlContentIsEscaped()
+        {
+            var feed = CreateTestFeed();
+
+            feed.Items.Clear();
+            feed.Items.Add(new Item()
+            {
+                Title = "fake",
+                FullHtmlContent = "<header><h1>article title</h1></header><main><p>body with &lt; some html characters and some neat@no.com symbols.</p></main><footer>&copy; 2019</footer>",
+
+                Body = "<p>Foo bar</p>",
+                Link = new Uri("http://foobar.com/item#1"),
+                Permalink = "http://foobar.com/item#1",
+                PublishDate = DateTime.UtcNow,
+                Author = new Author { Name = "Shawn Wildermuth", Email = "shawn@wildermuth.com" }
+            });
+
+            var rss = feed.Serialize();
+            var doc = XDocument.Parse(rss);
+
+        //    XNamespace ns = new XNamespace("")
+          //  var content = doc.Descendants(("content:encoded").First();
+
+            XNamespace ns = doc.Root.GetNamespaceOfPrefix("content");
+
+            var content = doc.Descendants(XNamespace.Get("content") + "encoded").First();
+
+            Assert.NotNull(content);
+
+        }
     }
 
 }
