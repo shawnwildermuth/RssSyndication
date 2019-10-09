@@ -137,21 +137,20 @@ namespace RssSyndication.Tests
                 Link = new Uri("http://foobar.com/item#1"),
                 Permalink = "http://foobar.com/item#1",
                 PublishDate = DateTime.UtcNow,
-                Author = new Author { Name = "Shawn Wildermuth", Email = "shawn@wildermuth.com" }
+                Author = new Author { Name = "Dirk Watkins", Email = "ya@right.dev" }
             });
 
             var rss = feed.Serialize();
+
+            Assert.Contains("xmlns:content=\"http://purl.org/rss/1.0/modules/content/\"", rss, StringComparison.OrdinalIgnoreCase);
+
             var doc = XDocument.Parse(rss);
-
-        //    XNamespace ns = new XNamespace("")
-          //  var content = doc.Descendants(("content:encoded").First();
-
-            XNamespace ns = doc.Root.GetNamespaceOfPrefix("content");
 
             var content = doc.Descendants(XNamespace.Get("content") + "encoded").First();
 
             Assert.NotNull(content);
 
+            Assert.True(content.Value.StartsWith("<![CDATA["), "HTML content needs to start with <![CDATA[");
         }
     }
 

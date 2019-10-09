@@ -27,6 +27,9 @@ namespace WilderMinds.RssSyndication
         {
             var doc = new XDocument(new XElement("rss"));
             doc.Root.Add(new XAttribute("version", "2.0"));
+          //  XNamespace nsContent = "http://purl.org/rss/1.0/modules/content/";
+
+            doc.Root.Add(new XAttribute(XNamespace.Xmlns + "content", "http://purl.org/rss/1.0/modules/content/"));
 
             var channel = new XElement("channel");
             channel.Add(new XElement("title", Title));
@@ -90,7 +93,11 @@ namespace WilderMinds.RssSyndication
                 {
                       //   XNamespace ns = doc.Root.GetNamespaceOfPrefix("content");
 
-                    var html = new XElement(XNamespace.Get("content") + "encoded", item.FullHtmlContent);               
+                    var html = new XElement(XNamespace.Get("content") + "encoded",
+                        "<![CDATA[" + 
+                        item.FullHtmlContent + 
+                        "]]>"
+                        );               
                     itemElement.Add(html);
                 }
 
