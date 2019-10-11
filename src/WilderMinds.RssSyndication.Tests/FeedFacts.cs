@@ -121,9 +121,8 @@ namespace RssSyndication.Tests
             Assert.StartsWith("<?xml version", rss);
         }
 
-
         [Fact]
-        public void HtmlContentIsEscaped()
+        public void SerializedXmlHasContentNamespace()
         {
             var feed = CreateTestFeed();
 
@@ -143,14 +142,106 @@ namespace RssSyndication.Tests
             var rss = feed.Serialize();
 
             Assert.Contains("xmlns:content=\"http://purl.org/rss/1.0/modules/content/\"", rss, StringComparison.OrdinalIgnoreCase);
+        }
+
+
+        [Fact]
+        public void HtmlContentIsEnclosedInCData()
+        {
+            var feed = CreateTestFeed();
+
+            feed.Items.Clear();
+            feed.Items.Add(new Item()
+            {
+                Title = "fake",
+                FullHtmlContent = "<header><h1>article title</h1></header><main><p>body with &lt; some html characters and some neat@no.com symbols.</p></main><footer>&copy; 2019</footer>",
+
+                Body = "<p>Foo bar</p>",
+                Link = new Uri("http://foobar.com/item#1"),
+                Permalink = "http://foobar.com/item#1",
+                PublishDate = DateTime.UtcNow,
+                Author = new Author { Name = "Dirk Watkins", Email = "ya@right.dev" }
+            });
+
+            var rss = feed.Serialize();
 
             var doc = XDocument.Parse(rss);
 
-            var content = doc.Descendants(XNamespace.Get("content") + "encoded").First();
+
+
+            var content = doc.Descendants().FirstOrDefault(x => x.Name.LocalName == "encoded");
 
             Assert.NotNull(content);
 
-            Assert.True(content.Value.StartsWith("<![CDATA["), "HTML content needs to start with <![CDATA[");
+            Assert.True(content.FirstNode.NodeType == System.Xml.XmlNodeType.CDATA);
+
+            Assert.True(content.FirstNode.ToString().StartsWith("<![CDATA["), "HTML content needs to start with <![CDATA[");
+        }
+
+
+        [Fact]
+        public void HtmlContentIsEnclosedInCData_Check2()
+        {
+            var feed = CreateTestFeed();
+
+            feed.Items.Clear();
+            feed.Items.Add(new Item()
+            {
+                Title = "fake",
+                FullHtmlContent = "<section></section>",
+
+                Body = "<p>Foo bar</p>",
+                Link = new Uri("http://foobar.com/item#1"),
+                Permalink = "http://foobar.com/item#1",
+                PublishDate = DateTime.UtcNow,
+                Author = new Author { Name = "Dirk Watkins", Email = "ya@right.dev" }
+            });
+
+            var rss = feed.Serialize();
+
+            var doc = XDocument.Parse(rss);
+
+
+            var content = doc.Descendants().FirstOrDefault(x => x.Name.LocalName == "encoded");
+
+            Assert.Equal("<![CDATA[<section></section>]]>", content.FirstNode.ToString(), ignoreCase: true, ignoreLineEndingDifferences: true);
+
+            Assert.True(content.FirstNode.ToString().StartsWith("<![CDATA["), "HTML content needs to start with <![CDATA[");
+
+
+            Assert.True(content.FirstNode.ToString().EndsWith("]]>"), "HTML content needs to end with ]]>");
+        }
+
+        [Fact]
+        public void HtmlContentIsNotEscaped()
+        {
+            var feed = CreateTestFeed();
+
+            feed.Items.Clear();
+            feed.Items.Add(new Item()
+            {
+                Title = "fake",
+                FullHtmlContent = "&copy;",
+
+                Body = "<p>Foo bar</p>",
+                Link = new Uri("http://foobar.com/item#1"),
+                Permalink = "http://foobar.com/item#1",
+                PublishDate = DateTime.UtcNow,
+                Author = new Author { Name = "Dirk Watkins", Email = "ya@right.dev" }
+            });
+
+            var rss = feed.Serialize();
+
+            Assert.Contains("xmlns:content=\"http://purl.org/rss/1.0/modules/content/\"", rss, StringComparison.OrdinalIgnoreCase);
+
+            var doc = XDocument.Parse(rss);
+
+
+            var content = doc.Descendants().FirstOrDefault(x => x.Name.LocalName == "encoded");
+
+            Assert.NotNull(content);
+
+            Assert.DoesNotContain("&amp;", content.Value, StringComparison.OrdinalIgnoreCase);
         }
     }
 

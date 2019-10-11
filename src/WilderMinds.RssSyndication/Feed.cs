@@ -25,11 +25,13 @@ namespace WilderMinds.RssSyndication
         /// <summary>Produces well-formatted rss-compatible xml string.</summary>
         public string Serialize()
         {
+            var contentNamespaceUrl = "http://purl.org/rss/1.0/modules/content/";
+
             var doc = new XDocument(new XElement("rss"));
             doc.Root.Add(new XAttribute("version", "2.0"));
-          //  XNamespace nsContent = "http://purl.org/rss/1.0/modules/content/";
 
-            doc.Root.Add(new XAttribute(XNamespace.Xmlns + "content", "http://purl.org/rss/1.0/modules/content/"));
+            //namespace for Facebook's xmlns:content full article content area
+            doc.Root.Add(new XAttribute(XNamespace.Xmlns + "content", contentNamespaceUrl));
 
             var channel = new XElement("channel");
             channel.Add(new XElement("title", Title));
@@ -57,7 +59,7 @@ namespace WilderMinds.RssSyndication
                 if (item.Comments != null) itemElement.Add(new XElement("comments", item.Comments.AbsoluteUri));
 
                 if (!string.IsNullOrWhiteSpace(item.Permalink)) itemElement.Add(new XElement("guid", item.Permalink));
-              
+
                 var dateFmt = item.PublishDate.ToString("r");
                 if (item.PublishDate != DateTime.MinValue) itemElement.Add(new XElement("pubDate", dateFmt));
 
@@ -91,21 +93,20 @@ namespace WilderMinds.RssSyndication
 
                 if (!string.IsNullOrWhiteSpace(item.FullHtmlContent))
                 {
-                      //   XNamespace ns = doc.Root.GetNamespaceOfPrefix("content");
-
-                    var html = new XElement(XNamespace.Get("content") + "encoded",
-                        "<![CDATA[" + 
-                        item.FullHtmlContent + 
-                        "]]>"
-                        );               
+                    //add content:encoded element, CData escaped html
+                    var ns = XNamespace.Get(contentNamespaceUrl);
+                    var html = new XElement(ns + "encoded", new XCData(item.FullHtmlContent));                    
                     itemElement.Add(html);
+                    html.ReplaceNodes(new XCData(item.FullHtmlContent));
                 }
 
 
                 channel.Add(itemElement);
             }
 
-            return doc.ToStringWithDeclaration();
+            string result =  doc.ToStringWithDeclaration();
+
+            return result;
         }
     }
 }
