@@ -36,6 +36,8 @@ namespace WilderMinds.RssSyndication
                 new XAttribute(XNamespace.Xmlns + "atom", "http://www.w3.org/2005/Atom"));
 
         var channel = new XElement("channel");
+      	// ignore if Link is not specified to prevent a NullReferenceException
+        if (Link != null)
             channel.Add(
                 new XElement(nsAtom + "link",
                 new XAttribute("rel", "self"),
