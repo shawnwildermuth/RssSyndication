@@ -23,49 +23,50 @@ namespace WilderMinds.RssSyndication
 
         public ICollection<Item> Items { get; set; } = new List<Item>();
 
-    /// <summary>Produces well-formatted rss-compatible xml string.</summary>
-    public string Serialize()
-    {
+        /// <summary>Produces well-formatted rss-compatible xml string.</summary>
+        public string Serialize()
+        {
 
-      var defaultOption = new SerializeOption()
-      {
-        Encoding = Encoding.Unicode
-      };
-      return Serialize(defaultOption);
-    }
-    /// <summary>Produces well-formatted rss-compatible xml string.</summary>
-    public string Serialize(SerializeOption option)
-    {
- var contentNamespaceUrl = "http://purl.org/rss/1.0/modules/content/";
+            var defaultOption = new SerializeOption()
+            {
+                Encoding = Encoding.Unicode
+            };
+            return Serialize(defaultOption);
+        }
 
-        XNamespace nsAtom = "http://www.w3.org/2005/Atom";
-        var doc = new XDocument(new XElement("rss"));
+        /// <summary>Produces well-formatted rss-compatible xml string.</summary>
+        public string Serialize(SerializeOption option)
+        {
+            var contentNamespaceUrl = "http://purl.org/rss/1.0/modules/content/";
 
-        doc.Root.Add(
-                new XAttribute("version", "2.0"), 
-                new XAttribute(XNamespace.Xmlns + "atom", "http://www.w3.org/2005/Atom"));
+            XNamespace nsAtom = "http://www.w3.org/2005/Atom";
+            var doc = new XDocument(new XElement("rss"));
+
+            doc.Root.Add(
+                    new XAttribute("version", "2.0"),
+                    new XAttribute(XNamespace.Xmlns + "atom", "http://www.w3.org/2005/Atom"));
 
             //namespace for Facebook's xmlns:content full article content area
             doc.Root.Add(new XAttribute(XNamespace.Xmlns + "content", contentNamespaceUrl));
 
-        var channel = new XElement("channel");
-      	// ignore if Link is not specified to prevent a NullReferenceException
-        if (Link != null)
-            channel.Add(
-                new XElement(nsAtom + "link",
-                new XAttribute("rel", "self"),
-                new XAttribute("type","application/rss+xml"),
-                new XAttribute("href", Link.AbsoluteUri)));
+            var channel = new XElement("channel");
+            // ignore if Link is not specified to prevent a NullReferenceException
+            if (Link != null)
+                channel.Add(
+                    new XElement(nsAtom + "link",
+                    new XAttribute("rel", "self"),
+                    new XAttribute("type", "application/rss+xml"),
+                    new XAttribute("href", Link.AbsoluteUri)));
 
             channel.Add(new XElement("title", Title));
             if (Link != null) channel.Add(new XElement("link", Link.AbsoluteUri));
             channel.Add(new XElement("description", Description));
             // copyright is not a requirement
             if (!string.IsNullOrEmpty(Copyright)) channel.Add(new XElement("copyright", Copyright));
-        
+
             channel.Add(new XElement("language", Language));
 
-        doc.Root.Add(channel);
+            doc.Root.Add(channel);
 
             foreach (var item in Items)
             {
@@ -120,16 +121,15 @@ namespace WilderMinds.RssSyndication
                 {
                     //add content:encoded element, CData escaped html
                     var ns = XNamespace.Get(contentNamespaceUrl);
-                    var html = new XElement(ns + "encoded", new XCData(item.FullHtmlContent));                    
+                    var html = new XElement(ns + "encoded", new XCData(item.FullHtmlContent));
                     itemElement.Add(html);
                     html.ReplaceNodes(new XCData(item.FullHtmlContent));
                 }
 
-
                 channel.Add(itemElement);
             }
 
-      return doc.ToStringWithDeclaration(option);
+            return doc.ToStringWithDeclaration(option);
         }
     }
 }

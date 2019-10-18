@@ -12,7 +12,6 @@ namespace RssSyndication.Tests
 {
     public class FeedFacts
     {
-
         Feed CreateTestFeed()
         {
             var feed = new Feed
@@ -116,31 +115,30 @@ namespace RssSyndication.Tests
         }
 
         [Fact]
-    public void AtomIsSupported()
-    {
-      var feed = new Feed
-      {
-        Title = "Shawn Wildermuth's Blog",
-        Description = "My Favorite Rants and Raves",
-        Link = new Uri("http://wildermuth.com/feed")
-      };
+        public void AtomIsSupported()
+        {
+            var feed = new Feed
+            {
+                Title = "Shawn Wildermuth's Blog",
+                Description = "My Favorite Rants and Raves",
+                Link = new Uri("http://wildermuth.com/feed")
+            };
 
-      Assert.NotNull(feed);
-      Assert.Null(feed.Copyright);
-    }
+            Assert.NotNull(feed);
+            Assert.Null(feed.Copyright);
+        }
 
+        [Fact]
+        public void CopyrightIsOptional()
+        {
+            var feed = CreateTestFeed();
 
-    [Fact]
-    public void CopyrightIsOptional()
-    {
-      var feed = CreateTestFeed();
+            Assert.NotNull(feed);
+            var rss = feed.Serialize();
+            Assert.Contains("http://www.w3.org/2005/Atom", rss);
+        }
 
-      Assert.NotNull(feed);
-      var rss = feed.Serialize();
-      Assert.Contains("http://www.w3.org/2005/Atom", rss);
-    }
-
-    [Fact]
+        [Fact]
         public void GeneratedXmlContainsDeclaration()
         {
             var feed = CreateTestFeed();
@@ -148,18 +146,18 @@ namespace RssSyndication.Tests
             Assert.StartsWith("<?xml version", rss);
         }
 
-    [Fact]
-    public void GeneratedXmlHonorsSerializeOption()
-    {
-      var feed = CreateTestFeed();
+        [Fact]
+        public void GeneratedXmlHonorsSerializeOption()
+        {
+            var feed = CreateTestFeed();
 
-      var defaultRss = feed.Serialize();
-      var withOption = feed.Serialize(new SerializeOption() { Encoding = Encoding.UTF8 });
+            var defaultRss = feed.Serialize();
+            var withOption = feed.Serialize(new SerializeOption() { Encoding = Encoding.UTF8 });
 
-      // verify encoding
-      Assert.Contains("utf-16", new StringReader(defaultRss).ReadLine());
-      Assert.Contains("utf-8", new StringReader(withOption).ReadLine());
-}
+            // verify encoding
+            Assert.Contains("utf-16", new StringReader(defaultRss).ReadLine());
+            Assert.Contains("utf-8", new StringReader(withOption).ReadLine());
+        }
 
         [Fact]
         public void SerializedXmlHasContentNamespace()
@@ -183,8 +181,6 @@ namespace RssSyndication.Tests
 
             Assert.Contains("xmlns:content=\"http://purl.org/rss/1.0/modules/content/\"", rss, StringComparison.OrdinalIgnoreCase);
         }
-  
-
 
         [Fact]
         public void HtmlContentIsEnclosedInCData()
@@ -218,7 +214,6 @@ namespace RssSyndication.Tests
 
             Assert.True(content.FirstNode.ToString().StartsWith("<![CDATA["), "HTML content needs to start with <![CDATA[");
         }
-
 
         [Fact]
         public void HtmlContentIsEnclosedInCData_Check2()
@@ -285,5 +280,4 @@ namespace RssSyndication.Tests
             Assert.DoesNotContain("&amp;", content.Value, StringComparison.OrdinalIgnoreCase);
         }
     }
-
 }

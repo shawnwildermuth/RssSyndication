@@ -1,33 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Xml.Linq;
 
 namespace WilderMinds.RssSyndication
 {
     public class Item
     {
         public Author Author { get; set; }
+
         public string Body { get; set; }
+
         public ICollection<string> Categories { get; set; } = new List<string>();
+
         public Uri Comments { get; set; }
+
         public Uri Link { get; set; }
+
         /// <summary>Maps to 'guid' property on Feed.Serialize()</summary>
         public string Permalink { get; set; }
+
         /// <summary>Maps to 'pubDate' property on Feed.Serialize()</summary>
         public DateTime PublishDate { get; set; }
+
         public string Title { get; set; }
 
         /// <summary>
         /// The full content of your article, in HTML form.
         /// Mainly for Facebook feeds.  Insert the entire HTML content here.  It will be escaped in a CDATA section when serialized.
         /// </summary>
-        public string FullHtmlContent {get;set;}
+        public string FullHtmlContent { get; set; }
 
         /// <summary>
         /// A string that provides a unique identifier for this article in your feed.
         /// </summary>
-        public string Guid{get;set;}
-
+        public string Guid { get; set; }
 
         /// <summary>
         /// use this tag to add a media element that will be used in layout view to illustrate your article. 

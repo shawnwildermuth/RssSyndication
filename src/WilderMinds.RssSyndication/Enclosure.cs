@@ -23,7 +23,7 @@ namespace WilderMinds.RssSyndication
         /// <summary>
         /// standard MIME type
         /// </summary>
-        /// <example>audtio/mpeg</example>
+        /// <example>audio/mpeg</example>
         public string MimeType { get; set; }
 
         public NameValueCollection Values { get; set; }
