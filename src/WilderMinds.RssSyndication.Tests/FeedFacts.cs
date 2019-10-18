@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Xml.Linq;
 using WilderMinds.RssSyndication;
 using Xunit;
@@ -114,12 +116,50 @@ namespace RssSyndication.Tests
         }
 
         [Fact]
+    public void AtomIsSupported()
+    {
+      var feed = new Feed
+      {
+        Title = "Shawn Wildermuth's Blog",
+        Description = "My Favorite Rants and Raves",
+        Link = new Uri("http://wildermuth.com/feed")
+      };
+
+      Assert.NotNull(feed);
+      Assert.Null(feed.Copyright);
+    }
+
+
+    [Fact]
+    public void CopyrightIsOptional()
+    {
+      var feed = CreateTestFeed();
+
+      Assert.NotNull(feed);
+      var rss = feed.Serialize();
+      Assert.Contains("http://www.w3.org/2005/Atom", rss);
+    }
+
+    [Fact]
         public void GeneratedXmlContainsDeclaration()
         {
             var feed = CreateTestFeed();
             var rss = feed.Serialize();
             Assert.StartsWith("<?xml version", rss);
         }
+
+    [Fact]
+    public void GeneratedXmlHonorsSerializeOption()
+    {
+      var feed = CreateTestFeed();
+
+      var defaultRss = feed.Serialize();
+      var withOption = feed.Serialize(new SerializeOption() { Encoding = Encoding.UTF8 });
+
+      // verify encoding
+      Assert.Contains("utf-16", new StringReader(defaultRss).ReadLine());
+      Assert.Contains("utf-8", new StringReader(withOption).ReadLine());
+}
 
         [Fact]
         public void SerializedXmlHasContentNamespace()
@@ -143,6 +183,7 @@ namespace RssSyndication.Tests
 
             Assert.Contains("xmlns:content=\"http://purl.org/rss/1.0/modules/content/\"", rss, StringComparison.OrdinalIgnoreCase);
         }
+  
 
 
         [Fact]
