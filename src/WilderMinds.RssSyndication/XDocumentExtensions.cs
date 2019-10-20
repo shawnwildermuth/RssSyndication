@@ -16,18 +16,18 @@ namespace WilderMinds.RssSyndication
             using (TextWriter writer = new RssStringWriter(builder, option))
                 what.Save(writer);
             return builder.ToString();
-            }
-        }
-
-        internal class RssStringWriter : StringWriter
-        {
-            private readonly SerializeOption option;
-
-            public RssStringWriter(StringBuilder sb, SerializeOption option) : base(sb)
-            {
-                this.option = option;
-            }
-
-            public override Encoding Encoding => option.Encoding;
         }
     }
+
+    internal class RssStringWriter : StringWriter
+    {
+        private readonly SerializeOption option;
+
+        public RssStringWriter(StringBuilder sb, SerializeOption option) : base(sb)
+        {
+            this.option = option;
+        }
+
+        public override Encoding Encoding => option.Encoding;
+    }
+}
