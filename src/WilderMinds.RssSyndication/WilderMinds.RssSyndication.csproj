@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Description>.NET Core Project for building RSS Feeds</Description>
-    <VersionPrefix>1.6.0</VersionPrefix>
+    <VersionPrefix>1.7.0</VersionPrefix>
     <Authors>Shawn Wildermuth</Authors>
     <TargetFramework>netstandard2.0</TargetFramework>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -10,7 +10,6 @@
     <PackageId>WilderMinds.RssSyndication</PackageId>
     <PackageTags>aspnetcore;netcore;rss;syndication</PackageTags>
     <PackageProjectUrl>https://github.com/shawnwildermuth/RssSyndication</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/shawnwildermuth/RssSyndication/blob/master/License.md</PackageLicenseUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>git://github.com/shawnwildermuth/RssSyndication</RepositoryUrl>
     <NetStandardImplicitPackageVersion>2.0.0</NetStandardImplicitPackageVersion>
@@ -20,8 +19,8 @@
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
-    <AssemblyVersion>1.6.0.0</AssemblyVersion>
-    <Version>1.6.0</Version>
+    <AssemblyVersion>1.7.0.0</AssemblyVersion>
+    <Version>1.7.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
