@@ -2,7 +2,7 @@
 
 .NET Core library for building RSS Feeds
 
-![Build status](https://github.com/shawnwildermuth/RssSyndication/workflows/build/badge.svg)
+![Build status](https://github.com/shawnwildermuth/RssSyndication/workflows/Build%20and%20Test/badge.svg)
 [![NuGet](https://img.shields.io/nuget/v/WilderMinds.RssSyndication.svg)](https://www.nuget.org/packages/WilderMinds.RssSyndication)
 
 Available as a Nuget Package for ASP.NET Core projects:
