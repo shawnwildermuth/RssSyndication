@@ -4,7 +4,7 @@
     <Description>.NET Core Project for building RSS Feeds</Description>
     <VersionPrefix>1.7.0</VersionPrefix>
     <Authors>Shawn Wildermuth</Authors>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AssemblyName>WilderMinds.RssSyndication</AssemblyName>
     <PackageId>WilderMinds.RssSyndication</PackageId>
