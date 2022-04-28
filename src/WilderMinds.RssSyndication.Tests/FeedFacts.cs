@@ -155,6 +155,17 @@ namespace RssSyndication.Tests
         }
 
         [Fact]
+        public void ShouldThrowIfRequiredSubElementsOfImageIsNull()
+        {
+            var url = new Uri("https://foobar.com/img/favicon.png");
+            var title = "Shawn Wildermuth's Blog";
+            var link = new Uri("http://wildermuth.com/feed");
+            Assert.Throws<ArgumentNullException>(() => new Image(null, title, link));
+            Assert.Throws<ArgumentNullException>(() => new Image(url, null, link));
+            Assert.Throws<ArgumentNullException>(() => new Image(url, title, null));
+        }
+
+        [Fact]
         public void GeneratedXmlContainsRequiredImageSubElements()
         {
             var feed = CreateTestFeed();
