@@ -22,6 +22,8 @@ namespace RssSyndication.Tests
                 Copyright = "(c) 2016"
             };
 
+            feed.Image = new Image(new Uri("https://foobar.com/img/favicon.png"), feed.Title, feed.Link);
+
             var item1 = new Item
             {
                 Title = "Foo Bar",
@@ -140,6 +142,34 @@ namespace RssSyndication.Tests
 
             Assert.NotNull(feed);
             Assert.Null(feed.Image);
+        }
+
+        [Fact]
+        public void GeneratedXmlContainsImageElement()
+        {
+            var feed = CreateTestFeed();
+
+            Assert.NotNull(feed);
+            var rss = feed.Serialize();
+            Assert.Contains("<image>", rss);
+        }
+
+        [Fact]
+        public void GeneratedXmlContainsRequiredImageSubElements()
+        {
+            var feed = CreateTestFeed();
+            var rss = feed.Serialize();
+
+            const string imageTag = "<image>";
+            var imageContentStart = rss.IndexOf(imageTag, StringComparison.OrdinalIgnoreCase) +
+                                    imageTag.Length;
+            var imageContentEnd = rss.IndexOf("</image>", StringComparison.OrdinalIgnoreCase);
+
+            var imageSubElements =
+                rss.Substring(imageContentStart, imageContentEnd - imageContentStart);
+            Assert.Contains("<url>https://foobar.com/img/favicon.png", imageSubElements);
+            Assert.Contains("<title>Shawn Wildermuth's Blog", imageSubElements);
+            Assert.Contains("<link>http://wildermuth.com/feed", imageSubElements);
         }
 
         [Fact]

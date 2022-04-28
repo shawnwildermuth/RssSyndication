@@ -67,6 +67,11 @@ namespace WilderMinds.RssSyndication
 
       channel.Add(new XElement("language", Language));
 
+      if (Image != null)
+      {
+          AddImageElement(channel);
+      }
+
       doc.Root.Add(channel);
 
       foreach (var item in Items)
@@ -131,6 +136,15 @@ namespace WilderMinds.RssSyndication
       }
 
       return doc.ToStringWithDeclaration(option);
+    }
+
+    private void AddImageElement(XElement channel)
+    {
+        var imageElement = new XElement("image");
+        imageElement.Add(new XElement("url", Image.Url.AbsoluteUri));
+        imageElement.Add(new XElement("title", Image.Title));
+        imageElement.Add(new XElement("link", Image.Link.AbsoluteUri));
+        channel.Add(imageElement);
     }
   }
 }
