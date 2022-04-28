@@ -115,7 +115,7 @@ namespace RssSyndication.Tests
         }
 
         [Fact]
-        public void AtomIsSupported()
+        public void CopyrightIsOptional()
         {
             var feed = new Feed
             {
@@ -129,7 +129,7 @@ namespace RssSyndication.Tests
         }
 
         [Fact]
-        public void CopyrightIsOptional()
+        public void AtomIsSupported()
         {
             var feed = CreateTestFeed();
 
