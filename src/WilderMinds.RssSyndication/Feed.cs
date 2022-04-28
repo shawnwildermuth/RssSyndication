@@ -13,6 +13,7 @@ namespace WilderMinds.RssSyndication
     public Uri Link { get; set; }
     public string Title { get; set; }
     public string Copyright { get; set; }
+    public Image Image { get; set; }
 
     /// <summary>
     /// ISO-639 language codes.

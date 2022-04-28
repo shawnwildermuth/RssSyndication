@@ -129,6 +129,20 @@ namespace RssSyndication.Tests
         }
 
         [Fact]
+        public void ImageIsOptional()
+        {
+            var feed = new Feed
+            {
+                Title = "Shawn Wildermuth's Blog",
+                Description = "My Favorite Rants and Raves",
+                Link = new Uri("http://wildermuth.com/feed")
+            };
+
+            Assert.NotNull(feed);
+            Assert.Null(feed.Image);
+        }
+
+        [Fact]
         public void AtomIsSupported()
         {
             var feed = CreateTestFeed();
