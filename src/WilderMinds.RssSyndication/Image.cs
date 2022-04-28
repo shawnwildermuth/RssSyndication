@@ -6,6 +6,8 @@ namespace WilderMinds.RssSyndication
 {
     public class Image
     {
+        /// <summary>Image contains three required sub-elements: url, title and link.</summary>
+        /// <exception cref="ArgumentNullException">If any required sub-elements are null.</exception>
         public Image(Uri url, string title, Uri link)
         {
             Url = url ?? throw new ArgumentNullException(nameof(url));
